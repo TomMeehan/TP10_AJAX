@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -33,8 +32,8 @@ public class DAO {
     }
     
     
-    public List<DiscountEntity> getDiscountCodes() throws SQLException, Exception {
-        List<DiscountEntity> codes = new LinkedList<DiscountEntity>();
+    public LinkedList<DiscountEntity> getDiscountCodes() throws SQLException, Exception {
+        LinkedList<DiscountEntity> codes = new LinkedList<>();
         
         String sql = "SELECT * FROM discount_code";
         

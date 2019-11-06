@@ -9,7 +9,7 @@ package modele;
  *
  * @author pedago
  */
-class DiscountEntity {
+public class DiscountEntity {
     
     private String code;
     private float rate;
