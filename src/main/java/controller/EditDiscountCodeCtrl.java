@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,29 +28,51 @@ public class EditDiscountCodeCtrl extends HttpServlet {
         try {
             DAO dao = new DAO(DataSourceFactory.getDataSource());
             
+            String action = request.getParameter("action");
+            
+            if( action != null) {
+                
+                
+                String code = request.getParameter("code");
+                
+                switch(action){
+                    case "ADD":   
+                        try {
+                            float rate = Float.parseFloat(request.getParameter("rate"));
+                            dao.addDiscountCode(new DiscountEntity(code,rate));
+                        } catch (SQLException e){
+                            request.setAttribute("error","Impossible d'ajouter ce code, vérifiez les valeurs");
+                        }
+                        break;
+                    case "DELETE":
+                        try { 
+                            dao.deleteDiscountCode(code);
+                        }
+                        catch (SQLException e){
+                            request.setAttribute("error","Code " + code + " utilisé, impossible de le supprimer");
+                        }
+                    case "UPDATE": 
+                        try {
+                            float newRate = Float.parseFloat(request.getParameter("rate")); 
+                            dao.updateDiscountCode(newRate, code);
+                            request.setAttribute("updated","Code mis à jour");
+                        } catch (SQLException e) {
+                            request.setAttribute("error","Impossible de mettre à jour le code");
+                        }
+                        break;
+                    default:
+                        throw new Exception();
+                }
+                
+            }
+
             LinkedList<DiscountEntity> codes = dao.getDiscountCodes();
             
-            if (codes.isEmpty()) throw new Exception();
-            System.out.println("controller.EditDiscountCodeCtrl.processRequest()");
+            if (codes.isEmpty()) throw new Exception("Codes introuvables");
+            
             request.setAttribute("codes", codes);
             
-            /*String action = request.getAttribute("action").toString();
-            
-            switch(action){
-                
-                case "ADD":
-                    
-                    break;
-                case "DELETE":
-                    
-                    break;
-                case "UPDATE":
-                    
-                    break;
-                default:
-                    break;
-            }*/
-            
+           
             request.getRequestDispatcher("views/EditDiscountCodeView.jsp").forward(request, response);
         
         }catch (Exception e){

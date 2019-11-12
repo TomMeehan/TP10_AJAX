@@ -42,23 +42,24 @@
     </head>
     <body>
         <h1>Edit a discount code</h1>
-        <form>
+        <form method='GET'>
             Code : <input name="code" size="1" maxlength="1" pattern="[A-Z]{1}+" title="Une lettre en MAJUSCULES">
             <br>
             Rate : <input name="rate" type="number" step="0.01" min="0.0" max="99.99" size="5">
             <br>
             <input name="action" type="submit" value="ADD">
-            <br><br>
+        </form>
+        <br><div><h4><c:if test="${ error != null }">${ error }</c:if></h4></div><br>
             <div class="table">
                 <div class="thead"><div class="td">Code</div><div class="td">Rate</div><div class="td"">Action</div><div class="td"">Action</div></div>
                 <div class="tbody">
-                <c:forEach var="discount_code" items="${codes}">
+                <c:forEach var="discount_code" items="${ codes }">
                     <form class="tr" method="get">
-                        <div class="td"><input type="text" name="code" value="${discount_code.code}" readonly></div><div class="td"><input name="taux" type="number" step="0.01" min="0.0" max="99.99" size="5" value="${discount_code.rate}"></div><div class="td"><input type="submit" name="action" value="DELETE"></div><div class="td"><input type="submit" name="action" value="UPDATE"></div>
+                        <div class="td"><input type="text" name="code" value="${discount_code.code}" readonly></div><div class="td"><input name="rate" type="number" step="0.01" min="0.0" max="99.99" size="5" value="${discount_code.rate}"></div><div class="td"><input type="submit" name="action" value="DELETE"></div><div class="td"><input type="submit" name="action" value="UPDATE"></div>
                     </form>
                 </c:forEach>
                 </div>
             </div>
-        </form>
+        <br><div><h4><c:if test="${ updated != null }">${ updated }</c:if></h4></div><br>
     </body>
 </html>

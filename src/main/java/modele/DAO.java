@@ -46,7 +46,7 @@ public class DAO {
             }
         }catch (SQLException ex) {
             Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
-            throw new Exception(ex.getMessage());
+            throw ex;
         }
         
         return codes;
@@ -54,25 +54,25 @@ public class DAO {
     
     public int addDiscountCode( DiscountEntity dc ) throws SQLException, Exception {
         
-        String sql = "INSERT INTO discount_codes (discount_code,rate) VALUES (?,?)";
+        String sql = "INSERT INTO discount_code (discount_code,rate) VALUES (?,?)";
         
         try (   Connection connection = myDataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)
         ) {
                 stmt.setString(1, dc.getCode());
-                stmt.setFloat(1, dc.getRate());
+                stmt.setFloat(2, dc.getRate());
 
                 return stmt.executeUpdate();
 
         }  catch (SQLException ex) {
                 Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
-                throw new Exception(ex.getMessage());
+                throw ex;
         }
     }
     
     public int deleteDiscountCode( String code ) throws SQLException, Exception {
         
-        String sql = "DELETE FROM discount_codes WHERE discount_code = ?";
+        String sql = "DELETE FROM discount_code WHERE discount_code = ?";
         
         try (   Connection connection = myDataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)
@@ -83,7 +83,25 @@ public class DAO {
 
         }  catch (SQLException ex) {
                 Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
-                throw new Exception(ex.getMessage());
+                throw ex;
+        }
+    }
+    
+    public int updateDiscountCode( float newRate, String code ) throws SQLException, Exception {
+        
+        String sql = "UPDATE discount_code SET rate = ? WHERE discount_code = ?";
+        
+        try (   Connection connection = myDataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)
+        ) {
+                stmt.setFloat(1, newRate);
+                stmt.setString(2, code);
+
+                return stmt.executeUpdate();
+
+        }  catch (SQLException ex) {
+                Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
+                throw ex;
         }
     }
 }
