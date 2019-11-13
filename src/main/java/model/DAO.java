@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modele;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +32,7 @@ public class DAO {
     }
     
     
-    public LinkedList<DiscountEntity> getDiscountCodes() throws SQLException, Exception {
+    public LinkedList<DiscountEntity> getDiscountCodes() throws SQLException {
         LinkedList<DiscountEntity> codes = new LinkedList<>();
         
         String sql = "SELECT * FROM discount_code";
@@ -52,7 +52,7 @@ public class DAO {
         return codes;
     }
     
-    public int addDiscountCode( DiscountEntity dc ) throws SQLException, Exception {
+    public int addDiscountCode( DiscountEntity dc ) throws SQLException {
         
         String sql = "INSERT INTO discount_code (discount_code,rate) VALUES (?,?)";
         
@@ -70,7 +70,7 @@ public class DAO {
         }
     }
     
-    public int deleteDiscountCode( String code ) throws SQLException, Exception {
+    public int deleteDiscountCode( String code ) throws SQLException {
         
         String sql = "DELETE FROM discount_code WHERE discount_code = ?";
         
@@ -87,7 +87,7 @@ public class DAO {
         }
     }
     
-    public int updateDiscountCode( float newRate, String code ) throws SQLException, Exception {
+    public int updateDiscountCode( float newRate, String code ) throws SQLException {
         
         String sql = "UPDATE discount_code SET rate = ? WHERE discount_code = ?";
         

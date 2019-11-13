@@ -1,5 +1,8 @@
-package controller;
+package servlet;
 
+import model.DAO;
+import model.DataSourceFactory;
+import model.DiscountEntity;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -8,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.*;
 
 @WebServlet(name = "EditDiscountCodeCtrl", urlPatterns = {"/EditDiscountCodeCtrl"})
 public class EditDiscountCodeCtrl extends HttpServlet {
