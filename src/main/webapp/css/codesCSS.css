@@ -1,27 +1,22 @@
-.table
-{
-    display:table;
-    border-collapse:separate;
-    border-spacing:2px;
+table {
+        font-family: verdana,arial,sans-serif;
+        font-size:11px;
+        color:#333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
 }
-.thead
-{
-    display:table-header-group;
-    color:white;
-    font-weight:bold;
-    background-color:grey;
+table th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
 }
-.tbody
-{
-    display:table-row-group;
-}
-.tr
-{
-    display:table-row;
-}
-.td
-{
-    display:table-cell;
-    border:1px solid black;
-    padding:1px;
+table td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
 }

@@ -5,6 +5,8 @@
  */
 package servlet;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,14 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import model.DataSourceFactory;
-import com.google.gson.*;
-import javax.servlet.annotation.WebServlet;
+import model.DiscountEntity;
+
 /**
  *
  * @author pedago
  */
-@WebServlet(name = "CodesInJSON", urlPatterns = {"/CodesInJSON"})
-public class CodesInJSON extends HttpServlet {
+public class AddCode extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,11 +44,13 @@ public class CodesInJSON extends HttpServlet {
         Properties result = new Properties();
         
         try {
-            result.put("codes", dao.getDiscountCodes());
+            String code = request.getParameter("code");
+            String rate = request.getParameter("rate");
+            dao.addDiscountCode(new DiscountEntity(code, Float.valueOf(rate)));
+            result.put("message","Code " + code + " ajouté.");
         } catch (SQLException ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            result.put("codes", Collections.EMPTY_LIST);
-            result.put("message", ex.getMessage());
+            result.put("message", "Impossible d'ajouter ce code, il déjà utilisé.");
         }
         ;
         try (PrintWriter out = response.getWriter()){
@@ -56,7 +59,6 @@ public class CodesInJSON extends HttpServlet {
             String gsonData = gson.toJson(result);
             out.println(gsonData);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

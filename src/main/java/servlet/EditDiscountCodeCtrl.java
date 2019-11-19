@@ -5,14 +5,13 @@ import model.DataSourceFactory;
 import model.DiscountEntity;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EditDiscountCodeCtrl", urlPatterns = {"/EditDiscountCodeCtrl"})
+
 public class EditDiscountCodeCtrl extends HttpServlet {
 
     /**
@@ -68,7 +67,7 @@ public class EditDiscountCodeCtrl extends HttpServlet {
                 
             }
 
-            LinkedList<DiscountEntity> codes = dao.getDiscountCodes();
+            List<DiscountEntity> codes = dao.getDiscountCodes();
             
             if (codes.isEmpty()) throw new Exception("Codes introuvables");
             

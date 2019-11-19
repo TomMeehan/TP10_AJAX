@@ -8,6 +8,14 @@
         <servlet-name>CodesInJSON</servlet-name>
         <servlet-class>servlet.CodesInJSON</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCode</servlet-name>
+        <servlet-class>servlet.AddCode</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCode</servlet-name>
+        <servlet-class>servlet.DeleteCode</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EditDiscountCodeCtrl</servlet-name>
         <url-pattern>/EditDiscountCodeCtrl</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>CodesInJSON</servlet-name>
         <url-pattern>/CodesInJSON</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCode</servlet-name>
+        <url-pattern>/AddCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCode</servlet-name>
+        <url-pattern>/DeleteCode</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
